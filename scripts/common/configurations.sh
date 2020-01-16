@@ -8,13 +8,8 @@ open /Applications/ShiftIt.app
 echo "Configuring FlyCut"
 open /Applications/Flycut.app
 
-echo
-echo "Installing vim configuration"
-pushd ~/
-if [ ! -d ~/.vim ]; then
-    git clone https://github.com/pivotal/vim-config.git ~/.vim
-    ~/.vim/bin/install
-fi
-popd
-
+echo "Configuring Karabiner"
+mkdir -p ~/.config/karabiner
+cp files/karabiner.json ~/.config/karabiner/karabiner.json
+open /Applications/Karabiner-Elements.app
 

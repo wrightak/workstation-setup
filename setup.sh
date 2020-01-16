@@ -18,24 +18,16 @@ sudo true;
 clear
 
 MY_DIR="$(dirname "$0")"
-SKIP_ANALYTICS=${SKIP_ANALYTICS:-0}
-if (( SKIP_ANALYTICS == 0 )); then
-    clientID=$(od -vAn -N4 -tx  < /dev/urandom)
-    source ${MY_DIR}/scripts/helpers/google-analytics.sh ${clientID} start $@
-else
-    export HOMEBREW_NO_ANALYTICS=1
-fi
 
 # Note: Homebrew needs to be set up first
 source ${MY_DIR}/scripts/common/homebrew.sh
 source ${MY_DIR}/scripts/common/configuration-bash.sh
 
 # Place any applications that require the user to type in their password here
-brew cask install github
 brew cask install zoomus
+brew cask install karabiner-elements
 
 source ${MY_DIR}/scripts/common/git.sh
-source ${MY_DIR}/scripts/common/git-aliases.sh
 source ${MY_DIR}/scripts/common/cloud-foundry.sh
 source ${MY_DIR}/scripts/common/applications-common.sh
 source ${MY_DIR}/scripts/common/unix.sh
@@ -54,8 +46,3 @@ do
        echo "Warning: $var does not appear to be a valid argument. File $FILE does not exist."
     fi
 done
-
-source ${MY_DIR}/scripts/common/finished.sh
-if (( SKIP_ANALYTICS == 0 )); then
-    source ${MY_DIR}/scripts/helpers/google-analytics.sh ${clientID} finish $@
-fi
